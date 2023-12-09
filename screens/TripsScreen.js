@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import firebase from '../firebaseConfig';
+import { auth, firestore } from '../firebaseConfig';
 
 const TripsScreen = () => {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
     const fetchTrips = async () => {
-      const userId = firebase.auth().currentUser.uid;
-      const tripsCollection = firebase.firestore().collection('trips');
-      const userTrips = await tripsCollection.where('userId', '==', userId).get();
-      setTrips(userTrips.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      if (auth.currentUser) {
+        const userId = auth.currentUser.uid;
+        const tripsCollection = firestore.collection('trips');
+        const userTrips = await tripsCollection.where('userId', '==', userId).get();
+        setTrips(userTrips.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      }
     };
 
     fetchTrips();
@@ -19,8 +21,7 @@ const TripsScreen = () => {
   const renderTrip = ({ item }) => (
     <View style={styles.tripItem}>
       <Text style={styles.tripTitle}>{item.title}</Text>
-      <Text style={styles.tripRating}>{`Rating: ${item.rating}`}</Text>
-      <Text style={styles.tripDescription}>{item.description}</Text>
+      {/*trip details */}
     </View>
   );
 
@@ -32,7 +33,6 @@ const TripsScreen = () => {
     />
   );
 };
-
 const styles = StyleSheet.create({
   tripItem: {
     padding: 20,
