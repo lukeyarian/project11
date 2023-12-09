@@ -7,6 +7,9 @@ import InboxScreen from '../screens/InboxScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import PropertyDetailScreen from '../screens/PropertyDetailScreen';
+import LoginScreen from '../screens/LoginScreen';
+import EmailLoginScreen from '../screens/EmailLoginScreen';
+import PasswordScreen from '../screens/PasswordScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -19,6 +22,19 @@ function ExploreStack() {
     </Stack.Navigator>
   );
 }
+
+function ProfileStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="EmailLogin" component={EmailLoginScreen} />
+      <Stack.Screen name="PasswordScreen" component={PasswordScreen} />
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+    </Stack.Navigator>
+  );
+}
+
+
 function MainTabNavigator() {
   return (
     <Tab.Navigator>

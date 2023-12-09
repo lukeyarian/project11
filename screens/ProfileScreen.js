@@ -1,56 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TextInput, Modal } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { auth } from '../firebaseConfig';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const [user, setUser] = useState(null);
-  const [isLoginModalVisible, setLoginModalVisible] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(currentUser => {
-      setUser(currentUser);
-    });
-
-    return () => unsubscribe();
+    const unsubscribe = auth.onAuthStateChanged(setUser);
+    return unsubscribe;
   }, []);
-
-  const handleLoginOrSignup = () => {
-    if (user) {
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => setLoginModalVisible(false))
-        .catch(error => console.log(error));
-    } else {
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(() => setLoginModalVisible(false))
-        .catch(error => console.log(error));
-    }
-  };
-
-  const handleLogout = () => {
-    auth.signOut();
-  };
 
   if (user) {
     return (
       <View>
-        <Text>Name: {user.displayName}</Text>
+        <Text>Name: {user.displayName || 'N/A'}</Text>
         <Text>Email: {user.email}</Text>
-        <Button title="Log out" onPress={handleLogout} />
+        <Button title="Log out" onPress={() => auth.signOut()} />
       </View>
     );
   }
 
   return (
     <View>
-      <Button title="Log in" onPress={() => setLoginModalVisible(true)} />
-      <Modal visible={isLoginModalVisible} animationType="slide">
-        <TextInput placeholder="Email" value={email} onChangeText={setEmail} />
-        <TextInput placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry />
-        <Button title="Continue" onPress={handleLoginOrSignup} />
-        <Button title="Close" onPress={() => setLoginModalVisible(false)} />
-      </Modal>
+      <Button title="Login" onPress={() => navigation.navigate('Login')} />
     </View>
   );
 };
