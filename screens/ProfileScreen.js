@@ -6,12 +6,10 @@ const ProfileScreen = () => {
   const [isLoginModalVisible, setLoginModalVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAuthenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged(currentUser => {
       setUser(currentUser);
-      setAuthenticated(!!currentUser);
     });
 
     return () => unsubscribe();
