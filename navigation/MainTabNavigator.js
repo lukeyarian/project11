@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import PropertyDetailScreen from '../screens/PropertyDetailScreen';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 function ExploreStack() {
   return (
