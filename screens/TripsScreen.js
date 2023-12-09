@@ -8,10 +8,12 @@ const TripsScreen = () => {
 
   useEffect(() => {
     const fetchReservations = async () => {
-      const q = query(collection(firestore, 'reservations'), where('userId', '==', auth.currentUser.uid));
-      const querySnapshot = await getDocs(q);
-      const fetchedReservations = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setReservations(fetchedReservations);
+      if (auth.currentUser) {
+        const q = query(collection(firestore, 'reservations'), where('userId', '==', auth.currentUser.uid));
+        const querySnapshot = await getDocs(q);
+        const fetchedReservations = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setReservations(fetchedReservations);
+      }
     };
 
     fetchReservations();
@@ -23,13 +25,14 @@ const TripsScreen = () => {
       renderItem={({ item }) => (
         <View style={styles.reservationItem}>
           <Text style={styles.title}>{item.propertyTitle}</Text>
-          {/* Display other details */}
+          {/* Display other property details */}
         </View>
       )}
       keyExtractor={item => item.id}
     />
   );
 };
+
 const styles = StyleSheet.create({
   tripItem: {
     padding: 20,

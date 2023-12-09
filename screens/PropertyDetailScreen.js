@@ -16,7 +16,7 @@ const PropertyDetailScreen = ({ route }) => {
     const reservationDetails = {
       userId: user.uid,
       propertyId: property.id,
-      startDate: '2023-01-01', // Replace with actual date values
+      startDate: '2023-01-01',
       endDate: '2023-01-05',
     };
 
