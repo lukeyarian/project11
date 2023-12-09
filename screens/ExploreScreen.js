@@ -35,6 +35,7 @@ const ExploreScreen = ({ navigation }) => {
   ];
 
   const renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => onPropertySelect(item)}>
     <View style={styles.listing}>
       <Image source={{ uri: item.imageUrl }} style={styles.listingImage} />
       <View style={styles.listingDetails}>
@@ -44,6 +45,7 @@ const ExploreScreen = ({ navigation }) => {
         <Text style={styles.listingPrice}>{item.price}</Text>
       </View>
     </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   listingImage: {
-    width: '100%',
+    width: '25%',
     height: 200,
   },
   listingDetails: {
