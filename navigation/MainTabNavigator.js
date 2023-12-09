@@ -1,14 +1,14 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ExploreScreen from './screens/ExploreScreen';
-import WishlistScreen from './screens/WishlistScreen'; 
-import TripsScreen from './screens/TripsScreen'; 
-import InboxScreen from './screens/InboxScreen';
-import ProfileScreen from './screens/ProfileScreen';
+import ExploreScreen from '../screens/ExploreScreen';
+import WishlistScreen from '../screens/WishlistScreen'; 
+import TripsScreen from '../screens/TripsScreen'; 
+import InboxScreen from '../screens/InboxScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+function MainTabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Explore" component={ExploreScreen} />
@@ -19,3 +19,4 @@ function MyTabs() {
     </Tab.Navigator>
   );
 }
+export default MainTabNavigator;
