@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TextInput, Modal } from 'react-native';
-import firebase from '../firebaseConfig'; 
+import { auth } from '../firebaseConfig';
+
 const ProfileScreen = () => {
   const [user, setUser] = useState(null);
   const [isLoginModalVisible, setLoginModalVisible] = useState(false);
@@ -8,7 +9,7 @@ const ProfileScreen = () => {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(currentUser => {
+    const unsubscribe = auth.onAuthStateChanged(currentUser => {
       setUser(currentUser);
     });
 
@@ -16,19 +17,19 @@ const ProfileScreen = () => {
   }, []);
 
   const handleLoginOrSignup = () => {
-    if (isAuthenticated) {
-      firebase.auth().signInWithEmailAndPassword(email, password)
+    if (user) {
+      auth.signInWithEmailAndPassword(email, password)
         .then(() => setLoginModalVisible(false))
         .catch(error => console.log(error));
     } else {
-      firebase.auth().createUserWithEmailAndPassword(email, password)
+      auth.createUserWithEmailAndPassword(email, password)
         .then(() => setLoginModalVisible(false))
         .catch(error => console.log(error));
     }
   };
 
   const handleLogout = () => {
-    firebase.auth().signOut();
+    auth.signOut();
   };
 
   if (user) {
