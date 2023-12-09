@@ -1,6 +1,8 @@
+import { StyleSheet } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { auth } from './firebaseConfig'; // Ensure this is correctly set up
+import { auth } from './firebaseConfig';
 import AuthStackNavigator from './navigation/AuthStackNavigator';
 import MainTabNavigator from './navigation/MainTabNavigator';
 
@@ -29,3 +31,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
+{/*}
+import React from 'react';
+import MainTabNavigator from './navigation/MainTabNavigator';
+import { NavigationContainer } from '@react-navigation/native';
+import AuthStackNavigator from './navigation/AuthStackNavigator';
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <AuthStackNavigator />
+    </NavigationContainer>
+  );
+};
+export default App;
+*/}

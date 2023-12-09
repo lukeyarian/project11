@@ -4,6 +4,10 @@ import 'firebase/auth';  // If you're using Firebase Authentication
 import 'firebase/firestore';  // If you're using Firebase Firestore
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAwU9y_Fyxl5VYenDpfKy8EhtzHHNTXeyk",
@@ -15,8 +19,10 @@ const firebaseConfig = {
   };
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
 const firestore = getFirestore(app);
+const login = createUserWithEmailAndPassword(app)
+const signup = signInWithEmailAndPassword(app)
 
 export { auth, firestore };
+export { login, signup };

@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 import { auth } from '../firebaseConfig';
+import { login, signup } from '../firebaseConfig';
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+  } from "firebase/auth";
 
 const PasswordScreen = ({ route, navigation }) => {
   const { email } = route.params;
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    auth.signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         // Logged in
-        navigation.navigate('ProfileScreen')
+        navigation.navigate('Profile')
       })
       .catch((error) => {
         alert('Login failed: ' + error.message);
@@ -18,15 +22,15 @@ const PasswordScreen = ({ route, navigation }) => {
   };
   
   const handleSignup = () => {
-    auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
         // Signed up
-        navigation.navigate('ProfileScreen')
+        navigation.navigate('Profile')
       })
       .catch((error) => {
         alert('Signup failed: ' + error.message);
       });
   };
+
   return (
     <View>
       <TextInput

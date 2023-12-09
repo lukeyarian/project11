@@ -1,34 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { auth, firestore } from '../firebaseConfig';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const TripsScreen = () => {
-  const [trips, setTrips] = useState([]);
+  const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
-    const fetchTrips = async () => {
-      if (auth.currentUser) {
-        const userId = auth.currentUser.uid;
-        const tripsCollection = firestore.collection('trips');
-        const userTrips = await tripsCollection.where('userId', '==', userId).get();
-        setTrips(userTrips.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-      }
+    const fetchReservations = async () => {
+      const q = query(collection(firestore, 'reservations'), where('userId', '==', auth.currentUser.uid));
+      const querySnapshot = await getDocs(q);
+      const fetchedReservations = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setReservations(fetchedReservations);
     };
 
-    fetchTrips();
+    fetchReservations();
   }, []);
-
-  const renderTrip = ({ item }) => (
-    <View style={styles.tripItem}>
-      <Text style={styles.tripTitle}>{item.title}</Text>
-      {/*trip details */}
-    </View>
-  );
 
   return (
     <FlatList
-      data={trips}
-      renderItem={renderTrip}
+      data={reservations}
+      renderItem={({ item }) => (
+        <View style={styles.reservationItem}>
+          <Text style={styles.title}>{item.propertyTitle}</Text>
+          {/* Display other details */}
+        </View>
+      )}
       keyExtractor={item => item.id}
     />
   );

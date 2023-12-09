@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Button } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
   return (
     <View>
+        <Text>Welcome to the Login Screen</Text>
+
       <Button
         title="Login with Email"
         onPress={() => navigation.navigate('EmailLogin')}

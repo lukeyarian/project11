@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, Image, ScrollView, Button, StyleSheet } from 'react-native';
+import { auth, firestore } from '../firebaseConfig'; // Ensure this path is correct
+import { collection, addDoc } from 'firebase/firestore';
 
 const PropertyDetailScreen = ({ route }) => {
   const { property } = route.params;
 
   const handleReserve = async () => {
-    const user = firebase.auth().currentUser;
+    const user = auth.currentUser;
     if (!user) {
       alert('You must be logged in to make a reservation.');
       return;
@@ -13,18 +15,18 @@ const PropertyDetailScreen = ({ route }) => {
   
     const reservationDetails = {
       userId: user.uid,
-      propertyId: property.id, 
-      startDate: '2023-01-01', 
+      propertyId: property.id,
+      startDate: '2023-01-01', // Replace with actual date values
       endDate: '2023-01-05',
     };
 
     try {
-      await firebase.firestore().collection('reservations').add(reservationDetails);
+      await addDoc(collection(firestore, 'reservations'), reservationDetails);
       alert('Reservation successful!');
     } catch (error) {
       console.error('Reservation failed:', error);
       alert('Failed to make reservation.');
-    
+    }
   };
 
   return (
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   image: {
-    width: '100%',
+    width: '25%',
     height: 300,
   },
   title: {
@@ -77,6 +79,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-}
 
 export default PropertyDetailScreen;
