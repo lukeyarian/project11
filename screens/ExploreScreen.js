@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 
 const ExploreScreen = ({ navigation }) => {
-    const onPropertySelect = (property) => {
-      navigation.navigate('PropertyDetailScreen', { property });
-    };
+  const onPropertySelect = (property) => {
+    navigation.navigate('PropertyDetailScreen', { property });
+  };
 
   const listings = [
     {
