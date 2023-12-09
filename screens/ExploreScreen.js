@@ -13,9 +13,25 @@ const ExploreScreen = ({ navigation }) => {
       rating: 4.8,
       type: 'Private room',
       price: '€45 night',
-      imageUrl: 'https://via.placeholder.com/150', 
+      imageUrl: 'https://www.dabblinganddecorating.com/wp-content/uploads/2021/02/1d8a90_6dd69bffb749426f86e14ade4948e71e-mv2_d_2870_3827_s_4_2-150x150.jpg', 
     },
-    
+    {
+      id: '2',
+      title: 'Large room with private bath',
+      rating: 4.5,
+      type: 'Private room',
+      price: '€55 night',
+      imageUrl: 'https://www.delineateyourdwelling.com/wp-content/uploads/Modern-Minimal-Plant-Living-Room-1-150x150.jpg', 
+    },
+    {
+      id: '3',
+      title: 'Small room with big windows',
+      rating: 4.2,
+      type: 'Private room',
+      price: '€35 night',
+      imageUrl: 'https://www.stonegableblog.com/wp-content/uploads/2022/04/pretty-room-150x150.jpg', 
+    },
+
   ];
 
   const renderItem = ({ item }) => (
