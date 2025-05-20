@@ -24,7 +24,7 @@ The following **extensions** are implemented:
 
 ## Notes
 
-This was incredibly rough. Using completely new everything to build this app took an incredibly long time. However, I am decently happy with how it turned out.
+
 
 ## License
 
